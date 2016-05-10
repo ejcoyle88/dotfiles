@@ -18,6 +18,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-obsession'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'PProvost/vim-ps1'
 
 filetype plugin indent on " Required
 

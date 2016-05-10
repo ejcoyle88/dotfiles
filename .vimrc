@@ -149,11 +149,13 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 
 " Ignoring folders in CTRLP
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 
 " Other CTRLP stuff
 let g:ctrlp_max_files = 1000
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_cmd = 'CtrlP .'
 
 " Forcing myself to learn to use HJKL. :(
 noremap <up> <nop>

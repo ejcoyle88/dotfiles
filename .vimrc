@@ -168,11 +168,18 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 inoremap <up> <nop>
 
+" Mappings for syntastic errors.
+nmap <leader><space>o :lopen<cr>      " open location window
+nmap <leader><space>c :lclose<cr>     " close location window
+nmap <leader><space>, :ll<cr>         " go to current error/warning
+nmap <leader><space>n :lnext<cr>      " next error/warning
+nmap <leader><space>p :lprev<cr>      " previous error/warning
+
 " Close VIM if NERDTree is the only thing left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDTree Command Mappings
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<cr>
 "map <leader>t :NERDTreeToggle<cr>
 nnoremap <leader>t :NERDTreeTabsToggle<cr>
 

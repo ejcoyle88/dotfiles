@@ -25,6 +25,7 @@ Plugin 'rking/ag.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-surround'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS 

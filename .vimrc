@@ -26,6 +26,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
+Plugin 'majutsushi/tagbar'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS 
@@ -62,8 +63,9 @@ set wrapscan              " Set the search scan to wrap around the file
 set ignorecase            " when searching
 set smartcase             " …unless I use an uppercase character
 
-set foldmethod=marker " Fold on 3x{
-set nofoldenable "But turn it off initially
+set foldmethod=indent " Fold on indents 
+set foldnestmax=2
+"set nofoldenable "But turn it off initially
 
 " No backup or swap files
 set nobackup
@@ -118,6 +120,9 @@ nnoremap <silent> <S-t> :tabnew %<CR>
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR> 
 
+" Tagbar toggle
+nmap <F8> :TagbarToggle<CR>
+
 " Indent highlight stuff
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 1
@@ -149,14 +154,43 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 
+" Character replacements
+set conceallevel=1
+set concealcursor=nvic
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_return         = "«"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
+
 " Ignoring folders in CTRLP
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 
 " Other CTRLP stuff
-let g:ctrlp_max_files = 1000
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_cmd = 'CtrlP .'
+let g:ctrlp_working_path_mode = 'rwa'
+let g:ctrlp_max_files = 4000
+let g:ctrlp_use_caching = 1
+
+try
+  unlet g:ctrlp_user_command
+catch
+
+endtry
+
+
+if executable('ag')
+  if !has('win32unix')
+    let g:ctrlp_max_files = 0
+    let g:ctrlp_use_caching = 0
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
+endif
 
 " Forcing myself to learn to use HJKL. :(
 noremap <up> <nop>
@@ -179,9 +213,9 @@ nmap <leader><space>p :lprev<cr>      " previous error/warning
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NERDTree Command Mappings
-map <C-n> :NERDTreeToggle<cr>
-"map <leader>t :NERDTreeToggle<cr>
-nnoremap <leader>t :NERDTreeTabsToggle<cr>
+map <C-n> :NERDTreeToggle<CR>
+map <leader>t :NERDTreeToggle<cr>
+"nnoremap <leader>t :NERDTreeTabsToggle<cr>
 
 " NERDTrees File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)

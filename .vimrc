@@ -40,7 +40,7 @@ set expandtab
 let g:jsx_ext_required = 0
 "-------- INDENTATION
 " Setup the theme
-set background=light
+set background=dark
 let g:gruvbox_termcolors =256 
 set t_Co=256
 set t_ut=

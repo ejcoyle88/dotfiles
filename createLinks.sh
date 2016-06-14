@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-SRC=$BASH_SOURCE
+SRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#SRC=$(dirname "$BASH_SOURCE")
 
-ln -s "$SRC/.vimrc" "~/.vimrc"
-ln -s "$SRC/.vim" "~/.vim"
+ln -sf $SRC/.vimrc ~/.vimrc
+ln -sf $SRC/.vim ~/.vim
 
-ln -s "$SRC/.tmux.conf" "~/.tmux.conf"
-ln -s "$SRC/.tmux" "~/.tmux"
+ln -sf $SRC/.tmux.conf ~/.tmux.conf
+ln -sf $SRC/.tmux ~/.tmux

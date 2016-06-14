@@ -27,6 +27,8 @@ Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
+Plugin 'junegunn/limelight.vim'
+Plugin 'junegunn/goyo.vim'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS 
@@ -38,11 +40,13 @@ set expandtab
 let g:jsx_ext_required = 0
 "-------- INDENTATION
 " Setup the theme
-set background=dark
-let g:gruvbox_termcolors = 256
-let g:solarized_termcolors = 256
+set background=light
+let g:gruvbox_termcolors =256 
 set t_Co=256
+set t_ut=
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_light = 'medium'
 
 set relativenumber " Show line numbers
 syntax on " Turn on syntax highlighting
@@ -128,7 +132,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_space_guides = 1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+if &background == 'light'
+  autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd ctermbg='grey'
+else
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+endif
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=none
 
 "Timeout stuff
@@ -167,13 +175,16 @@ let g:javascript_conceal_static         = "•"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 
+" Limelight
+let g:limelight_conceal_ctermfg = 239
+
 " Ignoring folders in CTRLP
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 
 " Other CTRLP stuff
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'rwa'
-let g:ctrlp_max_files = 4000
+"let g:ctrlp_max_files = 4000
 let g:ctrlp_use_caching = 1
 
 try

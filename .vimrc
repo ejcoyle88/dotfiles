@@ -11,10 +11,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-clojure-static'
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
@@ -27,54 +24,77 @@ Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
-Plugin 'junegunn/limelight.vim'
-Plugin 'junegunn/goyo.vim'
 
 filetype plugin indent on " Required
-"-------- VUNDLE PLUGINS 
-"-------- INDENTATION
+"-------- VUNDLE PLUGINS
+
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 let g:jsx_ext_required = 0
-"-------- INDENTATION
+
+set autoread
+set clipboard=unnamed
+
 " Setup the theme
 set background=dark
-let g:gruvbox_termcolors =256 
+let g:gruvbox_termcolors =256
 set t_Co=256
 set t_ut=
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_contrast_light = 'medium'
 
-set relativenumber " Show line numbers
-syntax on " Turn on syntax highlighting
+set relativenumber        " Show line numbers
+
+syntax on                 " Turn on syntax highlighting
 syntax sync minlines=256  " Makes big files slow
 set synmaxcol=2048        " Also long lines are slow
+
 set autoindent            " try your darndest to keep my indentation
 set smartindent           " Be smarter about indenting dummy
+
 set formatoptions=tcqr    " I like smart comments
-set encoding=utf-8 " Use UTF8 encoded text
-set mousehide " Hide the mouse when typing
-set list " Show invisible characters
-set backspace=2 " Backspace over eol, indent and insert
-set scrolloff=3 " Start scrolling when im 3 lines from the top/bottom
+set encoding=utf-8        " Use UTF8 encoded text
+set mousehide             " Hide the mouse when typing
+set list                  " Show invisible characters
+set backspace=2           " Backspace over eol, indent and insert
+set scrolloff=3           " Start scrolling when im 3 lines from the top/bottom
 
 set hlsearch              " highlight my search
 set incsearch             " incremental search
 set wrapscan              " Set the search scan to wrap around the file
 set ignorecase            " when searching
 set smartcase             " …unless I use an uppercase character
+set gdefault              " Do global replaces by default
 
-set foldmethod=indent " Fold on indents 
+set foldmethod=indent " Fold on indents
 set foldnestmax=2
 "set nofoldenable "But turn it off initially
+
+set wrap
+set textwidth=79
+set colorcolumn=80
 
 " No backup or swap files
 set nobackup
 set nowritebackup
 set noswapfile
+if v:version >= 730
+    set undofile                " keep a persistent backup file
+    set undodir=~/.vim/.undo,~/tmp,/tmp
+endif
+set directory=~/.vim/.tmp,~/tmp,/tmp
+
+" History stuff
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many muchos levels of undo
+
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+
+set cursorline           " underline the current line, for quick orientation
 
 " Set the leader key
 let mapleader=','
@@ -82,10 +102,11 @@ let mapleader=','
 " Key mappings
 " Make regex sane
 nnoremap / /\v
+vnoremap / /\v
 
 "Dumb escape
-inoremap JJ <ESC>
-vnoremap JJ <ESC>
+inoremap <leader>j <ESC>
+vnoremap <leader>j <ESC>
 
 " un-highlight search results
 nnoremap <silent><leader><space> :noh<cr>
@@ -100,11 +121,16 @@ nnoremap <silent><leader>l :set list!<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
 "Opens a vertical split and switches over (,v)
 nnoremap <leader>v <C-w>v<C-w>l
 
 "Moves around split windows
 nnoremap <leader>w <C-w><C-w>
+
+" Save easier because im clumsy
+nnoremap <silent><leader>s :w<cr>
 
 "Close a window
 nnoremap <silent><leader>q :q<cr>
@@ -122,7 +148,7 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew %<CR>
 
 " Set working directory
-nnoremap <leader>. :lcd %:p:h<CR> 
+nnoremap <leader>. :lcd %:p:h<CR>
 
 " Tagbar toggle
 nmap <F8> :TagbarToggle<CR>
@@ -130,30 +156,16 @@ nmap <F8> :TagbarToggle<CR>
 " Indent highlight stuff
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 1
-let g:indent_guides_auto_colors = 0
+let g:indent_guides_auto_colors = 1
 let g:indent_guides_space_guides = 1
-if &background == 'light'
-  autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd ctermbg='grey'
-else
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
-endif
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=none
 
 "Timeout stuff
 set timeout
 set timeoutlen=2500
 set ttimeoutlen=10
 
-" Setup highlighting for braces
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
 " Setup my status line
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set laststatus=2
 
 " Syntastic stuff
 let g:syntastic_always_populate_loc_list = 1
@@ -175,9 +187,6 @@ let g:javascript_conceal_static         = "•"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 
-" Limelight
-let g:limelight_conceal_ctermfg = 239
-
 " Ignoring folders in CTRLP
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 
@@ -192,7 +201,6 @@ try
 catch
 
 endtry
-
 
 if executable('ag')
   if !has('win32unix')
@@ -220,31 +228,14 @@ nmap <leader><space>, :ll<cr>         " go to current error/warning
 nmap <leader><space>n :lnext<cr>      " next error/warning
 nmap <leader><space>p :lprev<cr>      " previous error/warning
 
-" Close VIM if NERDTree is the only thing left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <leader>- :Texplore<cr> " File explorer
 
-" NERDTree Command Mappings
-map <C-n> :NERDTreeToggle<CR>
-map <leader>t :NERDTreeToggle<cr>
-"nnoremap <leader>t :NERDTreeTabsToggle<cr>
-
-" NERDTrees File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
+augroup cmdGroup
+  autocmd!
+  au FocusLost * :wa
+  " Setup highlighting for braces
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+augroup END

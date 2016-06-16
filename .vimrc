@@ -1,7 +1,7 @@
 set nocompatible " be iMproved, required
 
 "--------- VUNDLE PLUGINS
-filetype off 	 " required
+filetype off   " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()

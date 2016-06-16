@@ -11,9 +11,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'morhetz/gruvbox'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-clojure-static'
 Plugin 'scrooloose/syntastic'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
@@ -26,20 +24,21 @@ Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
-Plugin 'junegunn/limelight.vim'
-Plugin 'junegunn/goyo.vim'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS
-"-------- INDENTATION
+
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 let g:jsx_ext_required = 0
-"-------- INDENTATION
+
+set autoread
+set clipboard=unnamed
+
 " Setup the theme
-set background=light
+set background=dark
 let g:gruvbox_termcolors =256
 set t_Co=256
 set t_ut=
@@ -47,33 +46,55 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_contrast_light = 'medium'
 
-set relativenumber " Show line numbers
-syntax on " Turn on syntax highlighting
+set relativenumber        " Show line numbers
+
+syntax on                 " Turn on syntax highlighting
 syntax sync minlines=256  " Makes big files slow
 set synmaxcol=2048        " Also long lines are slow
+
 set autoindent            " try your darndest to keep my indentation
 set smartindent           " Be smarter about indenting dummy
+
 set formatoptions=tcqr    " I like smart comments
-set encoding=utf-8 " Use UTF8 encoded text
-set mousehide " Hide the mouse when typing
-set list " Show invisible characters
-set backspace=2 " Backspace over eol, indent and insert
-set scrolloff=3 " Start scrolling when im 3 lines from the top/bottom
+set encoding=utf-8        " Use UTF8 encoded text
+set mousehide             " Hide the mouse when typing
+set list                  " Show invisible characters
+set backspace=2           " Backspace over eol, indent and insert
+set scrolloff=3           " Start scrolling when im 3 lines from the top/bottom
 
 set hlsearch              " highlight my search
 set incsearch             " incremental search
 set wrapscan              " Set the search scan to wrap around the file
 set ignorecase            " when searching
 set smartcase             " …unless I use an uppercase character
+set gdefault              " Do global replaces by default
 
 set foldmethod=indent " Fold on indents
 set foldnestmax=2
 "set nofoldenable "But turn it off initially
 
+set wrap
+set textwidth=79
+set colorcolumn=80
+
 " No backup or swap files
 set nobackup
 set nowritebackup
 set noswapfile
+if v:version >= 730
+    set undofile                " keep a persistent backup file
+    set undodir=~/.vim/.undo,~/tmp,/tmp
+endif
+set directory=~/.vim/.tmp,~/tmp,/tmp
+
+" History stuff
+set history=1000         " remember more commands and search history
+set undolevels=1000      " use many muchos levels of undo
+
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+
+set cursorline           " underline the current line, for quick orientation
 
 " Set the leader key
 let mapleader=','
@@ -87,10 +108,11 @@ map <leader>- :Texplore<CR>
 " Key mappings
 " Make regex sane
 nnoremap / /\v
+vnoremap / /\v
 
 "Dumb escape
-inoremap JJ <ESC>
-vnoremap JJ <ESC>
+inoremap <leader>j <ESC>
+vnoremap <leader>j <ESC>
 
 " un-highlight search results
 nnoremap <silent><leader><space> :noh<cr>
@@ -105,11 +127,16 @@ nnoremap <silent><leader>l :set list!<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
 "Opens a vertical split and switches over (,v)
 nnoremap <leader>v <C-w>v<C-w>l
 
 "Moves around split windows
 nnoremap <leader>w <C-w><C-w>
+
+" Save easier because im clumsy
+nnoremap <silent><leader>s :w<cr>
 
 "Close a window
 nnoremap <silent><leader>q :q<cr>
@@ -143,12 +170,6 @@ set timeout
 set timeoutlen=2500
 set ttimeoutlen=10
 
-" Setup highlighting for braces
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
 " Setup my status line
 set laststatus=2
 set statusline=%f\ %h%w%m%r\ 
@@ -177,9 +198,6 @@ let g:javascript_conceal_static         = "•"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 
-" Limelight
-let g:limelight_conceal_ctermfg = 239
-
 " Ignoring folders in CTRLP
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 
@@ -194,7 +212,6 @@ try
 catch
 
 endtry
-
 
 if executable('ag')
   if !has('win32unix')
@@ -221,3 +238,14 @@ nmap <leader><space>, :ll<cr>         " go to current error/warning
 nmap <leader><space>n :lnext<cr>      " next error/warning
 nmap <leader><space>p :lprev<cr>      " previous error/warning
 
+map <leader>- :Texplore<cr> " File explorer
+
+augroup cmdGroup
+  autocmd!
+  au FocusLost * :wa
+  " Setup highlighting for braces
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+augroup END

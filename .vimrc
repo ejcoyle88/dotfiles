@@ -13,7 +13,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'guns/vim-clojure-static'
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -31,7 +30,7 @@ Plugin 'junegunn/limelight.vim'
 Plugin 'junegunn/goyo.vim'
 
 filetype plugin indent on " Required
-"-------- VUNDLE PLUGINS 
+"-------- VUNDLE PLUGINS
 "-------- INDENTATION
 set tabstop=2
 set shiftwidth=2
@@ -40,8 +39,8 @@ set expandtab
 let g:jsx_ext_required = 0
 "-------- INDENTATION
 " Setup the theme
-set background=dark
-let g:gruvbox_termcolors =256 
+set background=light
+let g:gruvbox_termcolors =256
 set t_Co=256
 set t_ut=
 colorscheme gruvbox
@@ -67,7 +66,7 @@ set wrapscan              " Set the search scan to wrap around the file
 set ignorecase            " when searching
 set smartcase             " …unless I use an uppercase character
 
-set foldmethod=indent " Fold on indents 
+set foldmethod=indent " Fold on indents
 set foldnestmax=2
 "set nofoldenable "But turn it off initially
 
@@ -78,6 +77,12 @@ set noswapfile
 
 " Set the leader key
 let mapleader=','
+
+" Allow quick swapping of bg
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+" Explorer
+map <leader>- :Texplore<CR>
 
 " Key mappings
 " Make regex sane
@@ -122,7 +127,7 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew %<CR>
 
 " Set working directory
-nnoremap <leader>. :lcd %:p:h<CR> 
+nnoremap <leader>. :lcd %:p:h<CR>
 
 " Tagbar toggle
 nmap <F8> :TagbarToggle<CR>
@@ -130,14 +135,8 @@ nmap <F8> :TagbarToggle<CR>
 " Indent highlight stuff
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 1
-let g:indent_guides_auto_colors = 0
+let g:indent_guides_auto_colors = 1
 let g:indent_guides_space_guides = 1
-if &background == 'light'
-  autocmd VimEnter,ColorScheme * :hi IndentGuidesOdd ctermbg='grey'
-else
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
-endif
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=none
 
 "Timeout stuff
 set timeout
@@ -151,9 +150,12 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " Setup my status line
+set laststatus=2
+set statusline=%f\ %h%w%m%r\ 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
 " Syntastic stuff
 let g:syntastic_always_populate_loc_list = 1
@@ -184,7 +186,7 @@ let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
 " Other CTRLP stuff
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'rwa'
-"let g:ctrlp_max_files = 4000
+let g:ctrlp_max_files = 0
 let g:ctrlp_use_caching = 1
 
 try
@@ -196,7 +198,6 @@ endtry
 
 if executable('ag')
   if !has('win32unix')
-    let g:ctrlp_max_files = 0
     let g:ctrlp_use_caching = 0
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -219,32 +220,4 @@ nmap <leader><space>c :lclose<cr>     " close location window
 nmap <leader><space>, :ll<cr>         " go to current error/warning
 nmap <leader><space>n :lnext<cr>      " next error/warning
 nmap <leader><space>p :lprev<cr>      " previous error/warning
-
-" Close VIM if NERDTree is the only thing left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" NERDTree Command Mappings
-map <C-n> :NERDTreeToggle<CR>
-map <leader>t :NERDTreeToggle<cr>
-"nnoremap <leader>t :NERDTreeTabsToggle<cr>
-
-" NERDTrees File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 

@@ -19,11 +19,20 @@ Plugin 'tpope/vim-obsession'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'PProvost/vim-ps1'
 Plugin 'rking/ag.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin '1995eaton/vim-better-javascript-completion'
+Plugin 'othree/yajs.vim'
+Plugin 'othree/es.next.syntax.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'ajh17/VimCompletesMe'
+Plugin 'Konfekt/FastFold'
 Plugin 'ajh17/VimCompletesMe'
 
 filetype plugin indent on " Required
@@ -70,7 +79,7 @@ set ignorecase            " when searching
 set smartcase             " …unless I use an uppercase character
 set gdefault              " Do global replaces by default
 
-set foldmethod=indent " Fold on indents
+set foldmethod=syntax " Fold on indents
 set foldnestmax=2
 "set nofoldenable "But turn it off initially
 
@@ -100,65 +109,10 @@ set cursorline           " underline the current line, for quick orientation
 " Set the leader key
 let mapleader=','
 
-" Allow quick swapping of bg
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
-
-" Explorer
-map <leader>- :Texplore<CR>
-
 " Key mappings
 " Make regex sane
 nnoremap / /\v
 vnoremap / /\v
-
-"Dumb escape
-inoremap <leader>j <ESC>
-vnoremap <leader>j <ESC>
-
-" un-highlight search results
-nnoremap <silent><leader><space> :noh<cr>
-
-" Toggle auto-indent before clipboard paste
-set pastetoggle=<leader>p
-
-" Shortcut to rapidly toggle `set list`
-nnoremap <silent><leader>l :set list!<cr>
-
-" Normal/Visual tab for bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
-
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
-
-"Opens a vertical split and switches over (,v)
-nnoremap <leader>v <C-w>v<C-w>l
-
-"Moves around split windows
-nnoremap <leader>w <C-w><C-w>
-
-" Save easier because im clumsy
-nnoremap <silent><leader>s :w<cr>
-
-"Close a window
-nnoremap <silent><leader>q :q<cr>
-
-" Close buffer
-noremap <silent><leader>d :bd<cr>
-
-" Buffer previous
-noremap <silent><leader>z :bp<CR>
-
-" Buffer next
-noremap <silent><leader>x :bn<CR>
-
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew %<CR>
-
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-" Tagbar toggle
-nmap <F8> :TagbarToggle<CR>
 
 " Indent highlight stuff
 let g:indent_guides_enable_on_vim_startup = 1
@@ -173,11 +127,6 @@ set ttimeoutlen=10
 
 " Setup my status line
 set laststatus=2
-set statusline=%f\ %h%w%m%r\ 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
 " Syntastic stuff
 let g:syntastic_always_populate_loc_list = 1
@@ -222,6 +171,58 @@ if executable('ag')
   endif
 endif
 
+" Toggle auto-indent before clipboard paste
+set pastetoggle=<leader>p
+
+" Allow quick swapping of bg
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+" Explorer
+map <leader>- :Texplore<CR>
+
+"Dumb escape
+inoremap <leader>j <ESC>
+vnoremap <leader>j <ESC>
+
+" un-highlight search results
+nnoremap <silent><leader><space> :noh<cr>
+
+" Shortcut to rapidly toggle `set list`
+nnoremap <silent><leader>l :set list!<cr>
+
+" Normal/Visual tab for bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %
+
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+"Opens a vertical split and switches over (,v)
+nnoremap <leader>v <C-w>v<C-w>l
+
+"Moves around split windows
+nnoremap <leader>w <C-w><C-w>
+
+"Close a window
+nnoremap <silent><leader>q :q<cr>
+
+" Close buffer
+noremap <silent><leader>d :bd<cr>
+
+" Buffer previous
+noremap <silent><leader>z :bp<CR>
+
+" Buffer next
+noremap <silent><leader>x :bn<CR>
+
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew %<CR>
+
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" Tagbar toggle
+nmap <F8> :TagbarToggle<CR>
+
 " Forcing myself to learn to use HJKL. :(
 noremap <up> <nop>
 noremap <down> <nop>
@@ -232,12 +233,22 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 inoremap <up> <nop>
 
+" Forcing down and up to make more sense
+nnoremap k gk
+nnoremap j gj
+
 " Mappings for syntastic errors.
 nmap <leader><space>o :lopen<cr>      " open location window
 nmap <leader><space>c :lclose<cr>     " close location window
 nmap <leader><space>, :ll<cr>         " go to current error/warning
 nmap <leader><space>n :lnext<cr>      " next error/warning
 nmap <leader><space>p :lprev<cr>      " previous error/warning
+
+let g:EasyMotion_do_mapping = 0
+map <leader>s <plug>(easymotion-overwin-f2)
+let g:EasyMotion_smartcase = 1
+map <leader>j <plug>(easymotion-j)
+map <leader>k <plug>(easymition-k)
 
 map <leader>- :Texplore<cr> " File explorer
 
@@ -249,4 +260,6 @@ augroup cmdGroup
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
+
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END

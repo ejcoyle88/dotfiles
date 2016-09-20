@@ -24,6 +24,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
+Plugin 'ajh17/VimCompletesMe'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS

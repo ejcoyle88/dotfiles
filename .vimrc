@@ -261,5 +261,4 @@ augroup cmdGroup
   au Syntax * RainbowParenthesesLoadBraces
 
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType json setlocal conceallevel=0
 augroup END

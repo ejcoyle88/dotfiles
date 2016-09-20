@@ -33,7 +33,6 @@ Plugin 'mxw/vim-jsx'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'Konfekt/FastFold'
-Plugin 'ajh17/VimCompletesMe'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS

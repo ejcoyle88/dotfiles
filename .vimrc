@@ -177,9 +177,6 @@ set pastetoggle=<leader>p
 " Allow quick swapping of bg
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
-" Explorer
-map <leader>- :Texplore<CR>
-
 "Dumb escape
 inoremap <leader>j <ESC>
 vnoremap <leader>j <ESC>
@@ -202,20 +199,28 @@ nnoremap <leader>v <C-w>v<C-w>l
 "Moves around split windows
 nnoremap <leader>w <C-w><C-w>
 
-"Close a window
-nnoremap <silent><leader>q :q<cr>
+" :q and :wq close buffers
+cnoreabbrev wq w<bar>bd
+cnoreabbrev q bd
 
-" Close buffer
-noremap <silent><leader>d :bd<cr>
+" Don't close buffers when swapping buffers
+" Lets me change files without saving.
+set hidden
 
-" Buffer previous
-noremap <silent><leader>z :bp<CR>
+" Setting up airline to show the tab bar and show only the file name.
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 
-" Buffer next
-noremap <silent><leader>x :bn<CR>
+" Bindings for swapping buffer next/prev.
+nnoremap gt :bnext<CR>
+nnoremap gT :bprevious<CR>
 
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew %<CR>
+" Open a new buffer
+nmap <leader>T :enew<CR>
+" close a buffer
+nmap <leader>bq :bp <BAR> bd #<CR>
+" list buffers
+nmap <leader>bl :ls<CR>
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
@@ -250,7 +255,7 @@ let g:EasyMotion_smartcase = 1
 map <leader>j <plug>(easymotion-j)
 map <leader>k <plug>(easymition-k)
 
-map <leader>- :Texplore<cr> " File explorer
+map <leader>- :Explore<cr> " File explorer
 
 augroup cmdGroup
   autocmd!

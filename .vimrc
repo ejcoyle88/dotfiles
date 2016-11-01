@@ -268,3 +268,16 @@ augroup cmdGroup
 
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
+
+augroup suffixes
+  autocmd!
+  
+  let associations = [
+    \["javascript", ".js,.javascript,.es,.esx,.json"],
+    \["python", ".py,.pyw"]
+  \]
+  
+  for ft in associations
+    execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+  endfor
+augroup END

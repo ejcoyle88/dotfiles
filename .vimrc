@@ -27,13 +27,14 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin '1995eaton/vim-better-javascript-completion'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/es.next.syntax.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'Konfekt/FastFold'
 Plugin 'Raimondi/YAIFA'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-scripts/SyntaxComplete'
+Plugin 'vim-scripts/vim-qf'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS
@@ -171,6 +172,8 @@ if executable('ag')
   endif
 endif
 
+let g:used_javascript_libs = 'jquery,underscore,react,flux,jasmine'
+
 " Toggle auto-indent before clipboard paste
 set pastetoggle=<leader>p
 
@@ -190,8 +193,6 @@ nnoremap <silent><leader>l :set list!<cr>
 " Normal/Visual tab for bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
-
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
 "Opens a vertical split and switches over (,v)
 nnoremap <leader>v <C-w>v<C-w>l
@@ -280,4 +281,13 @@ augroup suffixes
   for ft in associations
     execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
   endfor
+augroup END
+
+augroup SyntaxCompleteStuff
+  if has("autocmd") && exists("+omnifunc")
+      autocmd Filetype *
+        \ if &omnifunc == "" |
+          \   setlocal omnifunc=syntaxcomplete#Complete |
+        \ endif
+  endif
 augroup END

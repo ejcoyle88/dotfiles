@@ -24,6 +24,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'majutsushi/tagbar'
+Plugin 'derekwyatt/vim-scala'
 
 filetype plugin indent on " Required
 "-------- VUNDLE PLUGINS
@@ -106,6 +107,20 @@ map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR
 map <leader>- :Texplore<CR>
 
 " Key mappings
+
+" Damian Conway's Die Blinkënmatchen: highlight matches
+nnoremap <silent> n n:call HLNext(0.1)<cr>
+nnoremap <silent> N N:call HLNext(0.1)<cr>
+
+function! HLNext (blinktime)
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('ErrorMsg', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+
 " Make regex sane
 nnoremap / /\v
 vnoremap / /\v
@@ -248,4 +263,6 @@ augroup cmdGroup
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
+
+  au FileType json setlocal conceallevel=0
 augroup END

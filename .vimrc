@@ -1,61 +1,44 @@
-set nocompatible " be iMproved, required
+set nocompatible
 
-"--------- VUNDLE PLUGINS
-filetype off   " required
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'morhetz/gruvbox'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'mhinz/vim-startify'
-Plugin 'tpope/vim-obsession'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'PProvost/vim-ps1'
-Plugin 'rking/ag.vim'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-surround'
-Plugin 'majutsushi/tagbar'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin '1995eaton/vim-better-javascript-completion'
-Plugin 'mxw/vim-jsx'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'ajh17/VimCompletesMe'
-Plugin 'Konfekt/FastFold'
-Plugin 'Raimondi/YAIFA'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/SyntaxComplete'
-Plugin 'vim-scripts/vim-qf'
-
-filetype plugin indent on " Required
-"-------- VUNDLE PLUGINS
+call plug#begin('~/.vim/plugged')
+Plug '907th/vim-auto-save'
+Plug 'bluz71/vim-moonfly-statusline'
+Plug 'chaoren/vim-wordmotion'
+Plug 'dense-analysis/ale'
+Plug 'easymotion/vim-easymotion'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'rakr/vim-one'
+Plug 'rhysd/clever-f.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-fugitive'
+Plug 'sheerun/vim-polyglot'
+Plug 'mhinz/vim-startify'
+Plug 'wellle/targets.vim'
+call plug#end()
 
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-let g:jsx_ext_required = 0
 
 set autoread
 set clipboard=unnamed
 
 " Setup the theme
+colorscheme one
 set background=dark
-let g:gruvbox_termcolors =256
-set t_Co=256
-set t_ut=
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'medium'
-let g:gruvbox_contrast_light = 'medium'
 
 set relativenumber        " Show line numbers
 
@@ -82,7 +65,6 @@ set gdefault              " Do global replaces by default
 
 set foldmethod=syntax " Fold on indents
 set foldnestmax=2
-"set nofoldenable "But turn it off initially
 
 set wrap
 set textwidth=79
@@ -186,13 +168,14 @@ if executable('ag')
   endif
 endif
 
-let g:used_javascript_libs = 'jquery,underscore,react,flux,jasmine'
-
 " Toggle auto-indent before clipboard paste
 set pastetoggle=<leader>p
 
 " Allow quick swapping of bg
 map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
+" Makes w and e work normally with vim-wordmotion installed
+nmap cw ce
 
 "Dumb escape
 inoremap <leader>j <ESC>
@@ -217,14 +200,12 @@ nnoremap <leader>w <C-w><C-w>
 " :q and :wq close buffers
 cnoreabbrev wq w<bar>bd
 cnoreabbrev q bd
+cnoreabbrev qq quit
+cnoreabbrev wqq w<bar>quit
 
 " Don't close buffers when swapping buffers
 " Lets me change files without saving.
 set hidden
-
-" Setting up airline to show the tab bar and show only the file name.
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
 
 " Bindings for swapping buffer next/prev.
 nnoremap gt :bnext<CR>
@@ -285,24 +266,34 @@ augroup cmdGroup
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
-augroup suffixes
-  autocmd!
-  
-  let associations = [
-    \["javascript", ".js,.javascript,.es,.esx,.json"],
-    \["python", ".py,.pyw"]
-  \]
-  
-  for ft in associations
-    execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
-  endfor
-augroup END
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
-augroup SyntaxCompleteStuff
-  if has("autocmd") && exists("+omnifunc")
-      autocmd Filetype *
-        \ if &omnifunc == "" |
-          \   setlocal omnifunc=syntaxcomplete#Complete |
-        \ endif
-  endif
-augroup END
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
+
+let g:clever_f_across_no_line = 1
+let g:clever_f_fix_key_direction = 1
+let g:clever_f_timeout_ms = 3000
+
+let g:clever_f_across_no_line = 1
+let g:clever_f_fix_key_direction = 1
+let g:clever_f_timeout_ms = 3000
+
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_selector_ui = 'fzf'
+
+let g:ale_linters = {
+      \ 'cs': ['OmniSharp']
+\}
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']

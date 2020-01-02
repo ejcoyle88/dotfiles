@@ -16,9 +16,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'sickill/vim-monokai'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'OmniSharp/omnisharp-vim'
-Plug 'rakr/vim-one'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sleuth'
@@ -37,7 +37,7 @@ set autoread
 set clipboard=unnamed
 
 " Setup the theme
-colorscheme one
+colorscheme monokai
 set background=dark
 
 set relativenumber        " Show line numbers

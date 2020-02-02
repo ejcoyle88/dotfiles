@@ -26,7 +26,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'mhinz/vim-startify'
 Plug 'wellle/targets.vim'
+Plug 'ap/vim-buftabline'
 call plug#end()
+
+set path+=**
+set wildmenu
 
 set tabstop=2
 set shiftwidth=2
@@ -40,7 +44,9 @@ set clipboard=unnamed
 colorscheme monokai
 set background=dark
 
-set relativenumber        " Show line numbers
+set number        " Show line numbers
+set lazyredraw
+set ttyfast
 
 syntax on                 " Turn on syntax highlighting
 syntax sync minlines=256  " Makes big files slow
@@ -52,8 +58,9 @@ set smartindent           " Be smarter about indenting dummy
 set formatoptions=tcqr    " I like smart comments
 set encoding=utf-8        " Use UTF8 encoded text
 set mousehide             " Hide the mouse when typing
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list                  " Show invisible characters
-set backspace=2           " Backspace over eol, indent and insert
+set backspace=1           " Backspace over eol, indent. Don't do insert, to force using command mode
 set scrolloff=3           " Start scrolling when im 3 lines from the top/bottom
 
 set hlsearch              " highlight my search
@@ -66,9 +73,15 @@ set gdefault              " Do global replaces by default
 set foldmethod=syntax " Fold on indents
 set foldnestmax=2
 
+" Don't handle linebreaks automatically, let me do it
 set wrap
-set textwidth=79
-set colorcolumn=80
+set linebreak
+set textwidth=0
+set wrapmargin=0
+
+" Highlight the first character past 80 columns, to show long lines
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v.', 100)
 
 " No backup or swap files
 set nobackup
@@ -90,7 +103,7 @@ set noerrorbells         " don't beep
 set cursorline           " underline the current line, for quick orientation
 
 " Set the leader key
-let mapleader=','
+let mapleader='\'
 
 " Key mappings
 
@@ -145,34 +158,12 @@ let g:javascript_conceal_static         = "•"
 let g:javascript_conceal_super          = "Ω"
 let g:javascript_conceal_arrow_function = "⇒"
 
-" Ignoring folders in CTRLP
-let g:ctrlp_custom_ignore = '\v[\/](\.(git|hg|svn)|(node_modules)|(DS_Store))$'
-
-" Other CTRLP stuff
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_working_path_mode = 'rwa'
-let g:ctrlp_max_files = 0
-let g:ctrlp_use_caching = 1
-
-try
-  unlet g:ctrlp_user_command
-catch
-
-endtry
-
-if executable('ag')
-  if !has('win32unix')
-    let g:ctrlp_use_caching = 0
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  endif
-endif
-
 " Toggle auto-indent before clipboard paste
 set pastetoggle=<leader>p
 
-" Allow quick swapping of bg
-map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+" Don't use Ex mode, use Q for formatting.
+" Revert with ":unmap Q".
+map Q gq
 
 " Makes w and e work normally with vim-wordmotion installed
 nmap cw ce
@@ -246,10 +237,10 @@ nmap <leader><space>n :lnext<cr>      " next error/warning
 nmap <leader><space>p :lprev<cr>      " previous error/warning
 
 let g:EasyMotion_do_mapping = 0
-map <leader>s <plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
+map <leader>s <plug>(easymotion-overwin-f2)
 map <leader>j <plug>(easymotion-j)
-map <leader>k <plug>(easymition-k)
+map <leader>k <plug>(easymotion-k)
 
 map <leader>- :Explore<cr> " File explorer
 

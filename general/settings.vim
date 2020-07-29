@@ -1,0 +1,132 @@
+syntax on
+
+set noerrorbells
+set hidden
+
+set termguicolors
+colorscheme gruvbox
+set background=dark
+
+set path+=**
+set wildmenu
+set wildignore+=**/node_modules/**
+set wildignore+=**/bin/**
+set wildignore+=**/obj/**
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
+set hlsearch
+set incsearch
+set wrapscan
+set smartcase
+set ignorecase
+set gdefault
+
+set smartindent
+set autoindent
+
+set wrap
+set linebreak
+set textwidth=0
+set wrapmargin=0
+
+set foldmethod=syntax
+set foldnestmax=2
+
+set number
+set relativenumber
+set cursorline
+
+set noswapfile
+set nobackup
+set nowritebackup
+set undodir=~/.config/nvim/undodir
+set undofile
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+let g:auto_save = 1
+let g:auto_save_silent = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
+
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_selector_ui = 'fzf'
+
+let g:rnvimr_ex_enable= 1
+set shell=bash
+
+let g:OmniSharp_popup_options = {
+      \ 'winblend': 30,
+      \ 'winhl': 'Normal:Normal'
+      \}
+
+let g:OmniSharp_popup_position="peek"
+
+if has('patch-8.1.1880')
+  set completeopt=longest,menuone,popuphidden
+  " Highlight the completion documentation popup background/foreground the same as
+  " the completion menu itself, for better readability with highlighted
+  " documentation.
+  set completepopup=highlight:Pmenu,border:off
+else
+  set completeopt=longest,menuone,preview
+  " Set desired preview window height for viewing documentation.
+  set previewheight=5
+endif
+
+let g:OmniSharp_selector_ui = 'fzf'
+
+highlight ColorColumn ctermbg=magenta guibg=magenta
+call matchadd('ColorColumn', '\%81v.', 100)
+
+if has('nvim') && exists('*nvim_open_win')
+	augroup FSharpShowTooltip
+		autocmd!
+		"autocmd CursorHold *.fs,*.fsi,*.fsx call fsharp#showTooltip()
+	augroup END
+endif
+
+if executable('rg')
+  let g:rg_derive_root='true'
+endif
+
+augroup cmdGroup
+  autocmd!
+  au FocusLost * :wa
+
+  au FileType json setlocal conceallevel=0
+augroup END
+
+function! HLNext (blinktime)
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('ErrorMsg', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction

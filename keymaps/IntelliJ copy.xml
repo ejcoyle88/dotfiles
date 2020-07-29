@@ -1,0 +1,11 @@
+<keymap version="1" name="IntelliJ copy" parent="$default">
+  <action id="BuildSolutionAction">
+    <keyboard-shortcut first-keystroke="ctrl f9" />
+    <keyboard-shortcut first-keystroke="alt b" />
+  </action>
+  <action id="RiderUnitTestCoverSolutionAction">
+    <keyboard-shortcut first-keystroke="ctrl semicolon" second-keystroke="k" />
+    <keyboard-shortcut first-keystroke="ctrl semicolon" second-keystroke="ctrl k" />
+    <keyboard-shortcut first-keystroke="alt t" />
+  </action>
+</keymap>

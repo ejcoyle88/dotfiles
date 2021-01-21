@@ -1,0 +1,11 @@
+- defaults:
+    link:
+      relink: true
+      create: true
+- clean: ['~']
+- link:
+    '$HOME\AppData\Local\nvim': config/neovim
+- create:
+    - '$HOME\AppData\Local\.vim\undo-history'
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]

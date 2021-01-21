@@ -4,7 +4,8 @@ set noerrorbells
 set hidden
 
 set termguicolors
-colorscheme gruvbox
+autocmd vimenter * ++nested colorscheme gruvbox
+
 set background=dark
 
 set path+=**
@@ -65,10 +66,12 @@ else
   set signcolumn=yes
 endif
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"if !(exists("+termguicolors") && &termguicolors)
+  " Add (Neo)Vim's native statusline support.
+  " NOTE: Please see `:h coc-status` for integrations with external plugins that
+  " provide custom statusline: lightline.vim, vim-airline.
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"endif
 
 let g:auto_save = 1
 let g:auto_save_silent = 1

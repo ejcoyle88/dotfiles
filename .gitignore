@@ -1,2 +1,4 @@
 .vscode
 config/neovim/autoload
+config/neovim/undodir
+config/neovim/.netrwhist

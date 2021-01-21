@@ -1,0 +1,1 @@
+Get-Content -Path "./extensionList.txt" | ForEach-Object { "code --install-extension $_" }

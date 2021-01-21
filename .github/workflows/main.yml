@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run Chocolatey
+      run: .\InstallApps.ps1
+      shell: powershell
+    - name: Run dotbot
+      run: .\install_dotfiles
+      shell: bash
+    #- name: Test symlinks
+    #  run: .\tests\test_symlinks
+    #  shell: bash

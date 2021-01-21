@@ -103,6 +103,8 @@ else
 endif
 
 let g:OmniSharp_selector_ui = 'fzf'
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_install_gadgets = [ 'netcoredbg']
 
 highlight ColorColumn ctermbg=magenta guibg=magenta
 call matchadd('ColorColumn', '\%81v.', 100)

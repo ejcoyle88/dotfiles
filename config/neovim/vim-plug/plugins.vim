@@ -40,6 +40,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'vim-test/vim-test'
   Plug 'vimwiki/vimwiki'
   Plug 'pacha/vem-tabline'
+  Plug 'mhinz/vim-startify'
 call plug#end()
 
 autocmd VimEnter *

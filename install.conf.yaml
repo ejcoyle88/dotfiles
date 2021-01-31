@@ -5,6 +5,8 @@
 - clean: ['~']
 - link:
     ~/.config/nvim: config/neovim
+    ~/.config/fish/config.fish: config/fish/config.fish
+    ~/.config/fish/plugins.fish: config/fish/plugins.fish
 - create:
     - ~/.vim/undo-history
 - shell:

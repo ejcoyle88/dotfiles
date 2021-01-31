@@ -10,6 +10,11 @@ set background=dark
 
 set path+=**
 set wildmenu
+set wildmode=longest,list
+set wildignore+=.bak,.pyc,.o,.ojb,.a,.orig
+set wildignore+=.pdf,.jpg,.gif,.png,.jpeg,
+set wildignore+=.avi,.mkv,.so,
+set wildignore+=**/vendor/**
 set wildignore+=**/node_modules/**
 set wildignore+=**/bin/**
 set wildignore+=**/obj/**
@@ -18,6 +23,12 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set scrolloff=10
+
+set showcmd
+set clipboard+=unnamed
+
+set pastetoggle=<F6>
 
 set hlsearch
 set incsearch
@@ -138,6 +149,10 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
+set matchtime=2
+set matchpairs+=<:>
+set showmatch
+
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
@@ -159,3 +174,5 @@ let g:startify_lists = [
         \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
+
+autocmd! BufWritePost ~/.config/nvim/** nested source ~/.config/nvim/init.vim

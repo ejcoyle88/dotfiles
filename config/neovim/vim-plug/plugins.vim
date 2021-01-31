@@ -41,6 +41,10 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'pacha/vem-tabline'
   Plug 'mhinz/vim-startify'
+  Plug 'simnalamburt/vim-mundo'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-dadbod'
 call plug#end()
 
 autocmd VimEnter *

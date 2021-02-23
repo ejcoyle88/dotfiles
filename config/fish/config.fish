@@ -1,4 +1,5 @@
 if status --is-interactive
+  set fish_greeting
   set -g fish_user_abbreviations
   set -g fish_key_bindings fish_vi_key_bindings
   bind -M insert \cc kill-whole-line force-repaint

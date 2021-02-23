@@ -13,10 +13,10 @@ if status --is-interactive
 
   if type -q "exa"
     function ls
-      exa -la --git --color=always
+      exa -la --git --color=always $argv
     end
   else
-    alias ls="!ls -la"
+    alias ls="!ls -la" $argv
   end
 
   if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end

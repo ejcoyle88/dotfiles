@@ -175,4 +175,7 @@ let g:startify_lists = [
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
 
+let g:vimwiki_list = [{'path': '~/.config/vimwiki',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
 autocmd! BufWritePost ~/.config/nvim/** nested source ~/.config/nvim/init.vim

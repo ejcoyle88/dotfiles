@@ -5,6 +5,7 @@
 - clean: ['~']
 - link:
     ~/.config/nvim: config/neovim
+    ~/.config/vimwiki: config/vimwiki
     ~/.config/fish/config.fish: config/fish/config.fish
     ~/.config/fish/plugins.fish: config/fish/plugins.fish
     ~/.config/fish/functions/nvim.fish: config/fish/functions/nvim.fish

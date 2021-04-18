@@ -5,6 +5,7 @@
 - clean: ['~']
 - link:
     '$HOME\AppData\Local\nvim': config/neovim
+    '$HOME\AppData\Local\vimwiki': config/vimwiki
 - create:
     - '$HOME\AppData\Local\.vim\undo-history'
 - shell:

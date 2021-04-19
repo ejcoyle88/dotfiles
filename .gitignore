@@ -5,3 +5,4 @@ config/neovim/.netrwhist
 config/vimwiki/
 config/fish/functions/fzf_key_bindings.fish
 config/fish/functions/fish_prompt.fish
+config/fish/functions/fundle.fish

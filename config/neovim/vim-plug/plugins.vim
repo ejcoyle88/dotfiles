@@ -45,6 +45,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-dadbod'
+  Plug 'junegunn/goyo.vim'
 call plug#end()
 
 autocmd VimEnter *

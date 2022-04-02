@@ -27,6 +27,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'morhetz/gruvbox'
+  Plug 'junegunn/seoul256.vim'
   Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
         \ 'tag': '0.1.155',

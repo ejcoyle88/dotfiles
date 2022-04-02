@@ -4,7 +4,7 @@ set noerrorbells
 set hidden
 
 set termguicolors
-autocmd vimenter * ++nested colorscheme gruvbox
+autocmd vimenter * ++nested colorscheme seoul256
 
 set background=dark
 

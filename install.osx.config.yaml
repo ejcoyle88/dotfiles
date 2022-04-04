@@ -6,6 +6,7 @@
 - link:
     ~/.config/nvim: config/neovim
     ~/.config/vimwiki: config/vimwiki
+    ~/.zshrc: config/zsh/.zshrc
 - create:
     - ~/.vim/undo-history
 - shell:

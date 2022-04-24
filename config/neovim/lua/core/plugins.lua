@@ -42,7 +42,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 function get_setup(name)
-    return string.format('require("plugins/%s")', name)
+    return string.format('require("user/%s")', name)
 end
 
 -- Use a protected call so we don't error out on first use
@@ -66,11 +66,11 @@ return packer.startup(function(use)
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use {"nvim-lua/popup.nvim", opt = true } -- An implementation of the Popup API from vim in Neovim
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
-    --use ({"lewis6991/impatient.nvim", config = get_setup("impatient")})
+    use ({"lewis6991/impatient.nvim", config = get_setup("impatient")})
 
-    --use ({"DanilaMihailov/beacon.nvim", config = get_setup("beacon") }) -- show cursor on jumps
+    use ({"DanilaMihailov/beacon.nvim", config = get_setup("beacon") }) -- show cursor on jumps
     use "kyazdani42/nvim-web-devicons"
-    --use ({"kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") })
+    use ({"kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") })
     use {
         'romgrk/barbar.nvim',
         requires = {'kyazdani42/nvim-web-devicons'},

@@ -64,7 +64,7 @@ opt.cursorline=true
 opt.swapfile=false
 opt.backup=false
 opt.writebackup=false
-opt.undodir="~/.config/nvim/undodir"
+opt.undodir= os.getenv( "HOME" ) .. "/.config/nvim/undodir"
 opt.undofile=true
 
 -- Give more space for displaying messages.

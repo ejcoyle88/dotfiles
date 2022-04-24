@@ -91,3 +91,5 @@ nnoremap('<leader><space>', ':noh<cr>', { silent = true })
 
 nnoremap('/', '/\v')
 vnoremap('/', '/\v')
+
+map('n', '<leader>-', ':NvimTreeToggle<CR>', { silent = true })

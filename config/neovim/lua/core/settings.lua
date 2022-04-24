@@ -19,17 +19,19 @@ opt.termguicolors=true
 
 opt.background='dark'
 
+opt.shell = '/bin/zsh'
 opt.path = table.concat({ '**' })
 opt.wildmenu=true
-opt.wildmode='full'
+opt.wildmode='longest:full,full'
 opt.wildignore = add {
-  '.bak,.pyc,.o,.ojb,.a,.orig,',
-  '.pdf,.jpg,.gif,.png,.jpeg,',
-  '.avi,.mkv,.so,',
-  '**/vendor/**,',
-  '**/node_modules/**,',
-  '**/bin/**,',
-  '**/obj/**'
+  '.bak', '.pyc', '.o', '.ojb', '.a', '.orig,',
+  '.pdf','.jpg','.gif','.png','.jpeg',
+  '.avi','.mkv','.so',
+  '**/vendor/**',
+  '**/node_modules/**',
+  '**/bin/**',
+  '**/obj/**',
+  '*.DS_Store'
 }
 opt.tabstop=2
 opt.softtabstop=2
@@ -97,3 +99,14 @@ else
   opt.signcolumn='yes'
 end
 
+opt.formatoptions = "l"
+opt.formatoptions = opt.formatoptions
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "q" -- Allow formatting comments w/ gq
+    - "o" -- O and o, don't continue comments
+    + "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- I'm not in gradeschool anymore

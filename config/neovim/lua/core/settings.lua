@@ -1,6 +1,7 @@
 local g = vim.g
 local opt = vim.opt
 local fn = vim.fn
+local cmd = vim.cmd
 
 local function add(value, str, sep)
   sep = sep or ','
@@ -15,7 +16,8 @@ g.noerrorbells=true
 g.hidden=true
 
 opt.termguicolors=true
---cmd('colorscheme seoul256')
+
+vim.cmd[[colorscheme catppuccin]]
 
 opt.background='dark'
 

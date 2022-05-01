@@ -68,6 +68,11 @@ return packer.startup(function(use)
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
     use ({"lewis6991/impatient.nvim", config = get_setup("impatient")})
 
+    use({
+      "catppuccin/nvim",
+      as = "catppuccin"
+    })
+
     use ({"DanilaMihailov/beacon.nvim", config = get_setup("beacon") }) -- show cursor on jumps
     use "kyazdani42/nvim-web-devicons"
     use ({"kyazdani42/nvim-tree.lua", config = get_setup("nvim-tree") })
@@ -121,7 +126,7 @@ return packer.startup(function(use)
             require("core.utils").packer_lazy_load "gitsigns.nvim"
         end,
     })
-
+    
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

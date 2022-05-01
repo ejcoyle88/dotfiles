@@ -40,35 +40,25 @@ nnoremap('<leader>l', ':set list!<cr>', { silent = true })
 nnoremap('<tab>', '%')
 vnoremap('<tab>', '%')
 
---Opens a vertical split and switches over (,v)
-nnoremap('<leader>v', '<C-w>v<C-w>l')
-
---Moves around split windows
-nnoremap('<leader>w', '<C-w><C-w>')
-
 -- :q and :wq close buffers
 ex.abbrev('wq', 'w<bar>bd')
 ex.abbrev('q', 'bd')
 ex.abbrev('qq', 'quit')
 ex.abbrev('wqq', 'w<bar>quit')
 
-
 -- Bindings for swapping buffer next/prev.
 nnoremap('gt', ':bnext<CR>')
 nnoremap('gT', ':bprevious<CR>')
 
 -- Open a new buffer
-nnoremap('<leader>T', ':enew<CR>')
+nnoremap('<leader>t', ':enew<CR>')
 -- close a buffer
-nnoremap('<leader>bq', ':bp <BAR> bd #<CR>')
+nnoremap('<leader>q', ':bp <BAR> bd #<CR>')
 -- list buffers
 nnoremap('<leader>bl', ':ls<CR>')
 
 -- Set working directory
 nnoremap('<leader>.', ':lcd %:p:h<CR>')
-
--- Tagbar toggle
-nnoremap('<F8>', ':TagbarToggle<CR>')
 
 -- Forcing myself to learn to use HJKL. :(
 nnoremap('<up>', '<nop>')
@@ -87,9 +77,10 @@ nnoremap('j', 'gj')
 nnoremap('n', 'n:call HLNext(0.1)<cr>', { silent = true })
 nnoremap('N', 'N:call HLNext(0.1)<cr>', { silent = true })
 -- un-highlight search results
-nnoremap('<leader><space>', ':noh<cr>', { silent = true })
+nnoremap('<leader><leader>', ':noh<cr>', { silent = true })
 
-nnoremap('/', '/\v')
-vnoremap('/', '/\v')
+nnoremap('/', '/\\v')
+vnoremap('/', '/\\v')
 
 map('n', '<leader>-', ':NvimTreeToggle<CR>', { silent = true })
+map('n', '<leader>=', ':NvimTreeFocus<CR>', { silent = true })

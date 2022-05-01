@@ -8,3 +8,4 @@ config/fish/functions/fish_prompt.fish
 config/fish/functions/fundle.fish
 .DS_Store
 packer_compiled.lua
+Brewfile.lock.json

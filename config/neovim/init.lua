@@ -3,6 +3,7 @@ local core_modules = {
     "core.settings",
     "core.autocmd",
     "core.mappings",
+    "core.lsp-setup",
 }
 
 vim.g.mapleader = " "

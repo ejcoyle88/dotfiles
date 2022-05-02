@@ -66,6 +66,7 @@ return packer.startup(function(use)
     use "wbthomason/packer.nvim" -- Have packer manage itself
     use {"nvim-lua/popup.nvim", opt = true } -- An implementation of the Popup API from vim in Neovim
     use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
+    use "rcarriga/nvim-notify"
     use ({"lewis6991/impatient.nvim", config = get_setup("impatient")})
 
     use({
@@ -86,6 +87,13 @@ return packer.startup(function(use)
     -- LSP
     use "neovim/nvim-lspconfig" -- enable LSP
     use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+    use {
+        'junnplus/nvim-lsp-setup',
+        requires = {
+            'neovim/nvim-lspconfig',
+            'williamboman/nvim-lsp-installer',
+        }
+    }
     use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
     use "MunifTanjim/prettier.nvim"
@@ -132,4 +140,5 @@ return packer.startup(function(use)
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
+
 end)

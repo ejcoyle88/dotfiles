@@ -47,15 +47,17 @@ ex.abbrev('qq', 'quit')
 ex.abbrev('wqq', 'w<bar>quit')
 
 -- Bindings for swapping buffer next/prev.
-nnoremap('gt', ':bnext<CR>')
-nnoremap('gT', ':bprevious<CR>')
+nnoremap('<leader>bl', ':Telescope buffers<CR>')
+nnoremap('<leader>bn', ':bn<CR>')
+nnoremap('<leader>bv', ':bp<CR>')
+nnoremap('<leader>bq', ':bp <BAR> bd #<CR>')
 
 -- Open a new buffer
 nnoremap('<leader>t', ':enew<CR>')
 -- close a buffer
-nnoremap('<leader>q', ':bp <BAR> bd #<CR>')
--- list buffers
-nnoremap('<leader>bl', ':ls<CR>')
+
+nnoremap('<leader>ff', ':Telescope find_files<CR>')
+nnoremap('<leader>gf', ':lua require"telescope-config".project_files()<CR>', { silent = true })
 
 -- Set working directory
 nnoremap('<leader>.', ':lcd %:p:h<CR>')

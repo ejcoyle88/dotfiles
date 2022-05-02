@@ -134,7 +134,7 @@ return packer.startup(function(use)
             require("core.utils").packer_lazy_load "gitsigns.nvim"
         end,
     })
-    
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

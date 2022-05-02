@@ -2,6 +2,7 @@ tap "homebrew/cask-fonts"
 tap "isen-ng/dotnet-sdk-versions"
 
 brew "git"
+brew "wget"
 brew "exa"
 brew "neovim"
 brew "tmux"

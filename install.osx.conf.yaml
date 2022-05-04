@@ -10,6 +10,11 @@
 - create:
   - ~/.vim/undo-history
 - install-brew: true
+- brew:
+    - pyenv
+- shell:
+  - [pyenv install -s 3.10.3, Install python3]
+  - [pyenv global 3.10.3, Use python3 globally]
 - brewfile:
     - Brewfile
 - shell:
@@ -25,8 +30,6 @@
     stdout: true
     stderr: true
     stdin: true
-  - [pyenv install -s 3.10.3, Install python3]
-  - [pyenv global 3.10.3, Use python3 globally]
   - [fnm install --lts || true, Install latest lts node]
   - [fnm use lts-latest, Use latest lts node]
   - [python -m pip install pynvim, Install pynvim for nvim plugins]

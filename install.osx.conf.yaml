@@ -2,6 +2,7 @@
     link:
       relink: true
       create: true
+- install-brew: true
 - clean: ['~']
 - link:
     ~/.config/nvim: config/neovim
@@ -9,19 +10,14 @@
     ~/.zshrc: config/zsh/.zshrc
 - create:
     - ~/.vim/undo-history
+- brewfile:
+    - Brewfile
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
   - [chmod +x scripts/install_omz.sh, Allow OMZ installer to run]
   - 
     description: "Install OMZ"
     command: "./scripts/install_omz.sh"
-    stdout: true
-    stderr: true
-    stdin: true
-  - [chmod +x scripts/install_homebrew.sh, Allow Homebrew installer to run]
-  - 
-    description: "Install Homebrew"
-    command: "./scripts/install_homebrew.sh"
     stdout: true
     stderr: true
     stdin: true
@@ -32,9 +28,6 @@
     stdout: true
     stderr: true
     stdin: true
-  - [brew update || brew update, Update Homebrew]
-  - [brew upgrade, Brew Upgrade]
-  - [brew bundle, Brew Bundle]
   - [pyenv install -s 3.10.3, Install python3]
   - [pyenv global 3.10.3, Use python3 globally]
   - [fnm install --lts || true, Install latest lts node]

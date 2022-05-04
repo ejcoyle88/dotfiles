@@ -8,6 +8,8 @@ if [[ "$OSTYPE" == "msys" ]]; then
     # Enable symlinks in gitbash
     export MSYS=winsymlinks:nativestrict
     CONFIG="install.win.conf.yaml"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    CONFIG="install.osx.conf.yaml"
 else
     CONFIG="install.conf.yaml"
 fi

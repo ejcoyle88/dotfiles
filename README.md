@@ -1,18 +1,27 @@
-This is my current set of dotfiles, using [dotbot]() and [chocolatey]() to quickly get up and running.
+This repository contains my current set of dotfiles.
+
+It uses [dotbot](https://github.com/anishathalye/dotbot) to symlink configuration files and run scripts
+which are described in the .yaml files.
+
+On windows it makes use of [scoop](https://scoop.sh) to install applications,
+and uses [Homebrew](https://brew.sh) on OSX.
 
 ## Installation - Windows
-First, open an administrator powershell window, and make sure that it's set up so that you can run scripts.
 
+1. Open an administrator PowerShell window with permission to run scripts.
+
+Below is a snippet for allowing scripts in a PowerShell window.
 ```powershell
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 ```
 
-Then run `./install.ps1`. Once that completes all of the installations, open a git bash window, and run `.\install_dotfiles`.
+2. In the PowerShell window, run `./install.ps1`.
+3. Open a GitBash window.
+4. In the GitBash window, run `./install.sh`.
 
-There is a seperate set of scripts in `config\vscode` for automatically installing a default set of vscode extensions.
+There is a separate set of PowerShell scripts in `config\vscode` for 
+automatically installing a default set of VSCode extensions.
 
-## Installation - Mac
-Run ./install_osx.sh
+## Installation - Linux & OSX
+Run `./install.sh`.
 
-## Installation - Linux
-Run ./install.sh

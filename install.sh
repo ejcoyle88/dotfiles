@@ -11,7 +11,10 @@ if [[ "$OSTYPE" == "msys" ]]; then
     CONFIG="install.win.conf.yaml"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     CONFIG="install.osx.conf.yaml"
+
     PLUGINS="--plugin-dir dotbot-brew"
+    git -C "dotbot-brew" submodule sync --quiet --recursive
+    git submodule update --init --recursive "dotbot-brew"
 else
     CONFIG="install.conf.yaml"
 fi

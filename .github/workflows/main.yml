@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run Scoop
-      if: matrix.os == "windows-latest"
+      if: runner.os == 'Windows'
       run: runas /trustlevel:0x10000 "powershell.exe -command ./install.ps1"
       shell: pwsh
     - name: Run the installer

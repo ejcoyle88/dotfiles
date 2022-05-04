@@ -11,24 +11,24 @@
     - ~/.vim/undo-history
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [chmod +x install_omz.sh, Allow OMZ installer to run]
+  - [chmod +x scripts/install_omz.sh, Allow OMZ installer to run]
   - 
     description: "Install OMZ"
-    command: "./install_omz.sh"
+    command: "./scripts/install_omz.sh"
     stdout: true
     stderr: true
     stdin: true
-  - [chmod +x install_homebrew.sh, Allow Homebrew installer to run]
+  - [chmod +x scripts/install_homebrew.sh, Allow Homebrew installer to run]
   - 
     description: "Install Homebrew"
-    command: "./install_homebrew.sh"
+    command: "./scripts/install_homebrew.sh"
     stdout: true
     stderr: true
     stdin: true
-  - [chmod +x install_zplug.sh, Allow zplug installer to run]
+  - [chmod +x scripts/install_zplug.sh, Allow zplug installer to run]
   - 
     description: "Installing zplug"
-    command: "./install_zplug.sh"
+    command: "./scripts/install_zplug.sh"
     stdout: true
     stderr: true
     stdin: true

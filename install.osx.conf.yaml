@@ -2,28 +2,25 @@
     link:
       relink: true
       create: true
-- install-brew: true
 - clean: ['~']
 - link:
     ~/.config/nvim: config/neovim
     ~/.config/vimwiki: config/vimwiki
     ~/.zshrc: config/zsh/.zshrc
 - create:
-    - ~/.vim/undo-history
+  - ~/.vim/undo-history
+- install-brew: true
 - brewfile:
     - Brewfile
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
   - [chmod +x scripts/install_omz.sh, Allow OMZ installer to run]
-  - 
-    description: "Install OMZ"
+  - description: "Install OMZ"
     command: "./scripts/install_omz.sh"
     stdout: true
     stderr: true
     stdin: true
   - [chmod +x scripts/install_zplug.sh, Allow zplug installer to run]
-  - 
-    description: "Installing zplug"
+  - description: "Installing zplug"
     command: "./scripts/install_zplug.sh"
     stdout: true
     stderr: true

@@ -13,7 +13,7 @@ configs.setup({
     grammarly = {},
     graphql = {},
     jsonls = {},
-    csharp_ls = {},
+    omnisharp = {},
     pylsp = {},
     sumneko_lua = {},
     terraformls = {},

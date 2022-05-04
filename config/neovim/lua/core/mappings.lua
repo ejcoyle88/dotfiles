@@ -1,5 +1,6 @@
 local g = vim.g
 local opt = vim.opt
+local cmd = vim.cmd
 
 local map = require('core.utils').map
 
@@ -13,6 +14,10 @@ end
 
 local vnoremap = function(lhs, rhs, opts)
   map('v', lhs, rhs, opts)
+end
+
+local nnoremaps = function(lhs, rhs)
+  nnoremap(lhs, rhs, { silent = true })
 end
 
 local ex = setmetatable({}, {
@@ -29,12 +34,8 @@ local ex = setmetatable({}, {
 -- Toggle auto-indent before clipboard paste
 opt.pastetoggle='<leader>p'
 
--- Don't use Ex mode, use Q for formatting.
--- Revert with ":unmap Q".
--- map Q gq
-
 -- Shortcut to rapidly toggle `set list`
-nnoremap('<leader>l', ':set list!<cr>', { silent = true })
+nnoremaps('<leader>l', ':set list!<cr>')
 
 -- Normal/Visual tab for bracket pairs
 nnoremap('<tab>', '%')
@@ -47,17 +48,18 @@ ex.abbrev('qq', 'quit')
 ex.abbrev('wqq', 'w<bar>quit')
 
 -- Bindings for swapping buffer next/prev.
-nnoremap('<leader>bl', ':Telescope buffers<CR>')
-nnoremap('<leader>bn', ':bn<CR>')
-nnoremap('<leader>bv', ':bp<CR>')
-nnoremap('<leader>bq', ':bp <BAR> bd #<CR>')
+nnoremaps('<leader>bl', ':Telescope buffers<CR>')
+nnoremaps('<leader>bn', ':bn<CR>')
+nnoremaps('<leader>bv', ':bp<CR>')
+nnoremaps('<leader>bq', ':bp <BAR> bd #<CR>')
+nnoremaps('<leader>bc', ':enew<CR>')
+nnoremaps('<leader>bw', ':w<CR>')
 
--- Open a new buffer
-nnoremap('<leader>t', ':enew<CR>')
--- close a buffer
-
-nnoremap('<leader>ff', ':Telescope find_files<CR>')
-nnoremap('<leader>gf', ':lua require"telescope-config".project_files()<CR>', { silent = true })
+-- Moving around files
+nnoremaps('<leader>ff', ':Telescope find_files<CR>')
+nnoremaps('<leader>fg', ':lua require"telescope-config".project_files()<CR>')
+nnoremaps('<leader>ft', ':NvimTreeToggle<CR>')
+nnoremaps('<leader>fl', ':NvimTreeFocus<CR>')
 
 -- Set working directory
 nnoremap('<leader>.', ':lcd %:p:h<CR>')
@@ -72,17 +74,15 @@ inoremap('<left>', '<nop>')
 inoremap('<right>', '<nop>')
 inoremap('<up>', '<nop>')
 
--- Forcing down and up to make more sense
-nnoremap('k', 'gk')
-nnoremap('j', 'gj')
+-- This makes j and k work as you would expect with wrapped lines,
+-- while still working with the line numbers when making a jump
+-- command
+cmd[[nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')]]
+cmd[[nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')]]
 
-nnoremap('n', 'n:call HLNext(0.1)<cr>', { silent = true })
-nnoremap('N', 'N:call HLNext(0.1)<cr>', { silent = true })
 -- un-highlight search results
-nnoremap('<leader><leader>', ':noh<cr>', { silent = true })
+nnoremaps('<leader><leader>', ':noh<cr>')
 
 nnoremap('/', '/\\v')
 vnoremap('/', '/\\v')
 
-map('n', '<leader>-', ':NvimTreeToggle<CR>', { silent = true })
-map('n', '<leader>=', ':NvimTreeFocus<CR>', { silent = true })

@@ -34,6 +34,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 eval "$(fnm env --use-on-cd)"
+eval "$(rbenv init - zsh)"
 
 # Set typewritten ZSH as a prompt
 autoload -U promptinit; promptinit

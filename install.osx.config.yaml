@@ -11,3 +11,32 @@
     - ~/.vim/undo-history
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - [chmod +x install_omz.sh, Allow OMZ installer to run]
+  - 
+    description: "Install OMZ"
+    command: "./install_omz.sh"
+    stdout: true
+    stderr: true
+    stdin: true
+  - [chmod +x install_homebrew.sh, Allow Homebrew installer to run]
+  - 
+    description: "Install Homebrew"
+    command: "./install_homebrew.sh"
+    stdout: true
+    stderr: true
+    stdin: true
+  - [chmod +x install_zplug.sh, Allow zplug installer to run]
+  - 
+    description: "Installing zplug"
+    command: "./install_zplug.sh"
+    stdout: true
+    stderr: true
+    stdin: true
+  - [brew update || brew update, Update Homebrew]
+  - [brew upgrade, Brew Upgrade]
+  - [brew bundle, Brew Bundle]
+  - [pyenv install -s 3.10.3, Install python3]
+  - [pyenv global 3.10.3, Use python3 globally]
+  - [fnm install --lts || true, Install latest lts node]
+  - [fnm use lts-latest, Use latest lts node]
+  - [python -m pip install pynvim, Install pynvim for nvim plugins]

@@ -110,6 +110,18 @@ return packer.startup(function(use)
     use "saadparwaiz1/cmp_luasnip" -- snippet completions
     use 'hrsh7th/cmp-nvim-lsp'
 
+    -- Lua
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+
     -- Telescope
     use ({"nvim-telescope/telescope.nvim",
         config = get_setup("telescope"),

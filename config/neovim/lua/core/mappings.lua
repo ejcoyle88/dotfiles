@@ -83,6 +83,7 @@ cmd[[nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')]]
 -- un-highlight search results
 nnoremaps('<leader><leader>', ':noh<cr>')
 
+-- Make search case insensitive by default
 nnoremap('/', '/\\v')
 vnoremap('/', '/\\v')
 

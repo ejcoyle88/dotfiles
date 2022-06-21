@@ -51,6 +51,7 @@ ex.abbrev('wqq', 'w<bar>quit')
 nnoremaps('<leader>bl', ':Telescope buffers<CR>')
 nnoremaps('<leader>bn', ':bn<CR>')
 nnoremaps('<leader>bv', ':bp<CR>')
+nnoremaps('<leader>bp', '<C-^>')
 nnoremaps('<leader>bq', ':bp <BAR> bd #<CR>')
 nnoremaps('<leader>bc', ':enew<CR>')
 nnoremaps('<leader>bw', ':w<CR>')
@@ -87,3 +88,6 @@ nnoremaps('<leader><leader>', ':noh<cr>')
 nnoremap('/', '/\\v')
 vnoremap('/', '/\\v')
 
+-- Make 'r' redo, because I never use 'replace' and <c-r> is
+-- an awkward hand movement
+nnoremap('r', '<c-r>')

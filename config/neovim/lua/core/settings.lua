@@ -22,7 +22,7 @@ vim.cmd[[colorscheme catppuccin]]
 opt.background='dark'
 
 opt.shell = '/bin/zsh'
-opt.path = table.concat({ '**' })
+opt.path = vim.opt.path + ',**'
 opt.wildmenu=true
 opt.wildmode='longest:full,full'
 opt.wildignore = add {

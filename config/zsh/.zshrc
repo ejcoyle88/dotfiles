@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:$HOME/.dotnet/tools"
+export GPG_TTY=$(tty)
 source $ZSH/oh-my-zsh.sh
 source ~/.zplug/init.zsh
 

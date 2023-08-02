@@ -21,12 +21,13 @@ zplug load
 
 plugins=(git zsh-z zsh-exa-ls-plugin)
 
-
 ZSH_THEME="robbyrussell"
 
 export EDITOR='nvim'
 alias vim="nvim"
 alias v="nvim"
+
+alias ls="exa --long --header --group-directories-first -a"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -34,20 +35,19 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init --path)"
 fi
 
-eval "$(fnm env --use-on-cd)"
 eval "$(rbenv init - zsh)"
-
-# Set typewritten ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt typewritten
 
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' max-errors 3
-zstyle :compinstall filename '/Users/ejcoyle/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+export PATH="$HOME/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+eval "$(starship init zsh)"

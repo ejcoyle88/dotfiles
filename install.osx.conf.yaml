@@ -5,6 +5,7 @@
 - clean: ['~']
 - link:
     ~/.config/nvim: config/neovim
+    ~/.config/wezterm: config/wezterm
     ~/.zshrc: config/zsh/.zshrc
 - create:
   - ~/.vim/undo-history

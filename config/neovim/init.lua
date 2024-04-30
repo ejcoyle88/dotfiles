@@ -1,3 +1,10 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
 vim.g.mapleader = " "
 
 local g = vim.g
@@ -96,7 +103,49 @@ require('packer').startup(function(use)
         'nmac427/guess-indent.nvim',
         config = function() require('guess-indent').setup {} end,
     }
+    use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+    use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+        'nvim-tree/nvim-web-devicons',
+      },
+    }
+    use 'github/copilot.vim'
 end)
+
+local function nvim_tree_on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.set('n', '<leader>tp', api.tree.change_root_to_parent, opts('Change parent'))
+  vim.keymap.set('n', '<leader>t?', api.tree.toggle_help, opts('Toggle help'))
+  vim.keymap.set('n', '<leader>tt', api.tree.toggle, opts('Toggle tree'))
+  vim.keymap.set('n', '<leader>tf', api.tree.focus, opts('Focus tree'))
+end
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+  on_attach = nvim_tree_on_attach,
+})
+
+require("bufferline").setup{}
 
 require("mason").setup()
 require("mason-nvim-dap").setup()

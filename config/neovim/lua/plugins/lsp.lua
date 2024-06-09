@@ -41,7 +41,36 @@ return {
   },
   {'neovim/nvim-lspconfig'},
   {'hrsh7th/cmp-nvim-lsp'},
-  {'hrsh7th/nvim-cmp'},
+  {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup({
+        sources = {
+          { name = 'copilot', group_index = 2 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'path', group_index = 2 },
+          { name = 'luasnip', group_index = 2 },
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item()),
+          ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item()),
+          ["<C-Tab>"] = cmp.mapping(function(fallback)
+            -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+            if cmp.visible() then
+              local entry = cmp.get_selected_entry()
+              if not entry then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+              end
+              cmp.confirm()
+            else
+              fallback()
+            end
+          end, {"i","s","c",}),
+        })
+      })
+    end
+  },
   {'L3MON4D3/LuaSnip'},
   {
     'zbirenbaum/copilot.lua',
@@ -49,5 +78,10 @@ return {
       require('copilot').setup({})
     end
   },
-  {'zbirenbaum/copilot-cmp'},
+  {
+    'zbirenbaum/copilot-cmp',
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  },
 }

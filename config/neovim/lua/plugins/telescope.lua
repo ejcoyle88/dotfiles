@@ -10,6 +10,7 @@ return {
             local actions = require('telescope.actions')
             local utils = require('telescope.utils')
             local builtin = require('telescope.builtin')
+            require('telescope').load_extension('projects')
 
             _G.ts_project_files = function()
                 local _, ret, _ = utils.get_os_command_output({ 'git', 'rev-parse', '--is-inside-work-tree' })
@@ -99,6 +100,8 @@ return {
 
             nnoremaps('<leader>fs', ':Telescope find_files<CR>')
             nnoremaps('<leader>fg', ':lua ts_project_files()<CR>')
+            nnoremaps('<leader>bl', ':Telescope buffers<CR>')
+            nnoremaps('<leader>fc', ':Telescope live_grep<CR>')
         end
     }
 }
